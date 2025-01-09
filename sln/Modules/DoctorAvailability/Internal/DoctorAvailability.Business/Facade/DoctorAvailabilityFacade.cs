@@ -4,9 +4,9 @@ using DoctorAvailability.Shared.Models;
 
 namespace DoctorAvailability.Business.Facade;
 
-public class DoctorAvailability(IDoctorSlotService doctorSlotService) : IDoctorAvailability
+public class DoctorAvailabilityFacade(IDoctorSlotService doctorSlotService) : IDoctorAvailabilityFacade
 {
-    public async Task<IList<SlotDto>> GetDoctorAvailableSlots(Guid doctorId)
+    public async Task<IList<SlotDto>> GetDoctorAvailableSlots()
     {
         var slots = await doctorSlotService.GetDoctorAvailableSlots();
         return slots.Select(x => new SlotDto

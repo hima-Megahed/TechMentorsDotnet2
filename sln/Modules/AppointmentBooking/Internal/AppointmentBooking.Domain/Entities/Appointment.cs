@@ -4,10 +4,6 @@ namespace AppointmentBooking.Domain.Entities;
 
 public class Appointment
 {
-    public Appointment()
-    {
-        
-    }
     public Guid Id { get; init; }
     public Guid SlotId { get; init; }
     public Guid PatientId { get; init; }

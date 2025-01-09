@@ -1,8 +1,9 @@
-﻿using Carter;
+﻿using System.Reflection;
+using Carter;
 using Microsoft.Extensions.DependencyInjection;
-using System.Reflection;
 
 namespace Shared.Extensions;
+
 public static class CarterExtensions
 {
     public static IServiceCollection AddCarterWithAssemblies
@@ -13,7 +14,7 @@ public static class CarterExtensions
             foreach (var assembly in assemblies)
             {
                 var modules = assembly.GetTypes()
-                .Where(t => t.IsAssignableTo(typeof(ICarterModule))).ToArray();
+                    .Where(t => t.IsAssignableTo(typeof(ICarterModule))).ToArray();
 
                 config.WithModules(modules);
             }

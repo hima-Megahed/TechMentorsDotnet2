@@ -35,7 +35,8 @@ public class LayeredArchitectureTests
             .That()
             .ResideInNamespace($"{ModuleNamespace}.Presentation")
             .ShouldNot()
-            .HaveDependenciesOtherThan($"{ModuleNamespace}.Business", $"{ModuleNamespace}.Data", $"{ModuleNamespace}.Shared")
+            .HaveDependenciesOtherThan($"{ModuleNamespace}.Business", $"{ModuleNamespace}.Data",
+                $"{ModuleNamespace}.Shared")
             .GetResult();
 
         Assert.True(result.IsSuccessful, "Presentation should not depend on any other layer than Data and Business.");

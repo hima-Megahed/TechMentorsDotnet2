@@ -1,5 +1,4 @@
-﻿using DoctorAvailability.Data.DbContext;
-using DoctorAvailability.Business.Repositories;
+﻿using DoctorAvailability.Business.Repositories;
 using DoctorAvailability.Internal.Data.DbContext;
 using DoctorAvailability.Internal.Data.Models;
 using Microsoft.EntityFrameworkCore;
@@ -121,6 +120,7 @@ public class DoctorSlotRepositoryTests
         var repository = new DoctorSlotRepository(context);
 
         // Act & Assert
-        var exception = await Assert.ThrowsAsync<ArgumentException>(() => repository.AddSlot(DoctorSlot.Create(DateTime.Now, Guid.NewGuid(), null, 100)));
+        var exception = await Assert.ThrowsAsync<ArgumentException>(() =>
+            repository.AddSlot(DoctorSlot.Create(DateTime.Now, Guid.NewGuid(), null, 100)));
     }
 }

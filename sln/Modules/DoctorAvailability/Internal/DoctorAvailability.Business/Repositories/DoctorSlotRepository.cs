@@ -3,6 +3,7 @@ using DoctorAvailability.Internal.Data.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace DoctorAvailability.Business.Repositories;
+
 public class DoctorSlotRepository(DoctorAvailabilityContext context) : IDoctorSlotRepository
 {
     public async Task<List<DoctorSlot>> GetDoctorAvailableSlots()
@@ -35,7 +36,8 @@ public class DoctorSlotRepository(DoctorAvailabilityContext context) : IDoctorSl
             .DoctorSlots.FindAsync(slotId);
     }
 
-    public async Task SaveChangesAsync() => await context.SaveChangesAsync();
+    public async Task SaveChangesAsync()
+    {
+        await context.SaveChangesAsync();
+    }
 }
-
-

@@ -2,6 +2,7 @@
 using DoctorAvailability.Internal.Data.Models;
 
 namespace DoctorAvailability.Internal.Data.DbContext;
+
 public class DoctorAvailabilityContext(DbContextOptions<DoctorAvailabilityContext> options)
     : Microsoft.EntityFrameworkCore.DbContext(options)
 {

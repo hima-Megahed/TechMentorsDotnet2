@@ -2,8 +2,8 @@
 
 namespace DoctorAvailability.Shared.Facade;
 
-public interface IDoctorAvailability
+public interface IDoctorAvailabilityFacade
 {
-    Task<IList<SlotDto>> GetDoctorAvailableSlots(Guid doctorId);
+    Task<IList<SlotDto>> GetDoctorAvailableSlots();
     Task<SlotDto> ReserveSlot(Guid slotId);
 }

@@ -1,5 +1,7 @@
+using AppointmentBooking.Api.Endpoints.GetAvailableSlots;
 using AppointmentBooking.Infrastructure.Registrar;
 using Carter;
+using DoctorAvailability.Presentation.Endpoints.AddSlot;
 using DoctorAvailability.Presentation.Registrar;
 using Scalar.AspNetCore;
 using Shared.Extensions;
@@ -11,9 +13,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddOpenApi();
 
 builder.Services
-    .AddCarterWithAssemblies(typeof(DoctorAvailabilityModuleRegistrar).Assembly);
+    .AddCarterWithAssemblies(typeof(AddSlotEndpoint).Assembly);
 builder.Services
-    .AddCarterWithAssemblies(typeof(AppointmentBookingModuleRegistrar).Assembly);
+    .AddCarterWithAssemblies(typeof(GetAvailableSlots).Assembly);
 
 // Register module services
 builder.Services
@@ -24,10 +26,7 @@ builder.Services
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.MapOpenApi();
-}
+if (app.Environment.IsDevelopment()) app.MapOpenApi();
 app.MapScalarApiReference();
 app.UseHttpsRedirection();
 app.MapCarter();
@@ -37,4 +36,3 @@ app.MapCarter();
 app.UseDoctorAvailabilityDbInitializer();
 
 app.Run();
-

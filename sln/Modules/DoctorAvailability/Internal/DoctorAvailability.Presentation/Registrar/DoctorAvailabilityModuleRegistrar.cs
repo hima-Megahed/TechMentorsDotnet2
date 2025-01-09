@@ -1,4 +1,5 @@
-﻿using DoctorAvailability.Business.Repositories;
+﻿using DoctorAvailability.Business.Facade;
+using DoctorAvailability.Business.Repositories;
 using DoctorAvailability.Business.Services.DoctorSlot;
 using DoctorAvailability.Internal.Data.DbContext;
 using DoctorAvailability.Internal.Data.Models;
@@ -9,22 +10,20 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace DoctorAvailability.Presentation.Registrar;
+
 public static class DoctorAvailabilityModuleRegistrar
 {
     public static IServiceCollection AddDoctorAvailabilityModule(this IServiceCollection services,
-       IConfiguration configuration)
+        IConfiguration configuration)
     {
         var connectionString = configuration.GetConnectionString("DefaultConnection");
 
 
-        services.AddDbContext<DoctorAvailabilityContext>(options =>
-        {
-            options.UseSqlite(connectionString);
-        });
+        services.AddDbContext<DoctorAvailabilityContext>(options => { options.UseSqlite(connectionString); });
 
         services.AddScoped<IDoctorSlotRepository, DoctorSlotRepository>();
         services.AddScoped<IDoctorSlotService, DoctorSlotService>();
-        services.AddScoped<IDoctorAvailability, Business.Facade.DoctorAvailability>();
+        services.AddScoped<IDoctorAvailabilityFacade, DoctorAvailabilityFacade>();
 
         return services;
     }

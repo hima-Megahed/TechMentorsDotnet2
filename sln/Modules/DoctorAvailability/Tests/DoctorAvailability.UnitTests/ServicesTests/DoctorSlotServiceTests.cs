@@ -30,11 +30,11 @@ public class DoctorSlotServiceTests
         var mockSlots = new List<DoctorSlot>
         {
             DoctorSlot.Create(DateTime.Now.AddDays(1), doctorId, doctorName, 100),
-            DoctorSlot.Create(DateTime.Now.AddDays(5), doctorId, doctorName, 150),
+            DoctorSlot.Create(DateTime.Now.AddDays(5), doctorId, doctorName, 150)
         };
 
         _repositoryMock.Setup(repo => repo.GetMySlots())
-                       .ReturnsAsync(mockSlots);
+            .ReturnsAsync(mockSlots);
 
         // Act
         var result = await _service.GetMySlots();
@@ -54,10 +54,10 @@ public class DoctorSlotServiceTests
         var newSlotId = Guid.NewGuid();
 
         _repositoryMock.Setup(repo => repo.AddSlot(It.IsAny<DoctorSlot>()))
-                       .ReturnsAsync(newSlotId);
+            .ReturnsAsync(newSlotId);
 
         _repositoryMock.Setup(repo => repo.SaveChangesAsync())
-                       .Returns(Task.CompletedTask);
+            .Returns(Task.CompletedTask);
 
         // Act
         var result = await _service.AddSlot(slotRequest);
@@ -76,10 +76,10 @@ public class DoctorSlotServiceTests
         var slot = DoctorSlot.Create(DateTime.Now, Guid.NewGuid(), "John Smith", 500);
 
         _repositoryMock.Setup(repo => repo.GetSlotById(slot.Id))
-                       .ReturnsAsync(slot);
+            .ReturnsAsync(slot);
 
         _repositoryMock.Setup(repo => repo.SaveChangesAsync())
-                       .Returns(Task.CompletedTask);
+            .Returns(Task.CompletedTask);
 
         // Act
         var result = await _service.ReserveSlot(slot.Id);
@@ -100,7 +100,7 @@ public class DoctorSlotServiceTests
         var slot = DoctorSlot.CreateReserved(DateTime.Now, Guid.NewGuid(), "Dr. Smith", 100);
 
         _repositoryMock.Setup(repo => repo.GetSlotById(slotId))
-                       .ReturnsAsync(slot);
+            .ReturnsAsync(slot);
 
         // Act & Assert
         var exception = await Assert.ThrowsAsync<Exception>(() => _service.ReserveSlot(slotId));
@@ -117,7 +117,7 @@ public class DoctorSlotServiceTests
         var slotId = Guid.NewGuid();
 
         _repositoryMock.Setup(repo => repo.GetSlotById(slotId))
-                       .ReturnsAsync((DoctorSlot?)null);
+            .ReturnsAsync((DoctorSlot?)null);
 
         // Act & Assert
         var exception = await Assert.ThrowsAsync<Exception>(() => _service.ReserveSlot(slotId));

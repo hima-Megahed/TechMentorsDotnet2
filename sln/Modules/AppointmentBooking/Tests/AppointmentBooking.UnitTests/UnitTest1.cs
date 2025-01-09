@@ -1,11 +1,9 @@
-﻿namespace AppointmentBooking.UnitTests
-{
-    public class UnitTest1
-    {
-        [Fact]
-        public void Test1()
-        {
+﻿namespace AppointmentBooking.UnitTests;
 
-        }
+public class UnitTest1
+{
+    [Fact]
+    public void Test1()
+    {
     }
 }

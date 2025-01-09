@@ -4,5 +4,5 @@ public enum AppointmentStatus
 {
     New = 0,
     Completed = 1,
-    Canceled = 2,
+    Canceled = 2
 }
