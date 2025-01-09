@@ -1,7 +1,9 @@
 ﻿using AppointmentBooking.Application.Contracts.Repositories;
+using AppointmentBooking.Application.Contracts.Services;
 using AppointmentBooking.Application.GetAvailableSlots.Queries;
 using AppointmentBooking.Infrastructure.Persistence.DbContext;
 using AppointmentBooking.Infrastructure.Repositories;
+using AppointmentBooking.Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -20,6 +22,7 @@ public static class AppointmentBookingModuleRegistrar
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(GetAvailableSlotsQuery).Assembly));
 
         services.AddScoped<IAppointmentRepository, AppointmentRepository>();
+        services.AddScoped<IAppointmentService, AppointmentService>();
 
         return services;
     }
