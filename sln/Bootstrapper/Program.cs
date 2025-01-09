@@ -1,3 +1,4 @@
+using AppointmentBooking.Infrastructure.Registrar;
 using Carter;
 using DoctorAvailability.Presentation.Registrar;
 using Scalar.AspNetCore;
@@ -9,14 +10,16 @@ var builder = WebApplication.CreateBuilder(args);
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
-var doctorAvailabilityAssembly = typeof(DoctorAvailabilityModuleRegistrar).Assembly;
 builder.Services
-    .AddCarterWithAssemblies(doctorAvailabilityAssembly);
+    .AddCarterWithAssemblies(typeof(DoctorAvailabilityModuleRegistrar).Assembly);
+builder.Services
+    .AddCarterWithAssemblies(typeof(AppointmentBookingModuleRegistrar).Assembly);
 
 // Register module services
 builder.Services
     .AddDoctorAvailabilityModule(builder.Configuration);
-
+builder.Services
+    .AddAppointmentBookingModule(builder.Configuration);
 
 var app = builder.Build();
 
