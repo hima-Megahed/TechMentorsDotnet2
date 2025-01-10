@@ -23,4 +23,9 @@ public class DoctorAvailabilityFacade(IDoctorSlotService doctorSlotService) : ID
     {
         return await doctorSlotService.ReserveSlot(slotId);
     }
+
+    public async Task<SlotDto> GetSlotById(Guid slotId)
+    {
+        return await doctorSlotService.GetSlotById(slotId);
+    }
 }

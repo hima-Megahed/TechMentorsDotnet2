@@ -7,13 +7,11 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <Folder Include="Facade\"/>
+      <PackageReference Include="MassTransit" Version="8.3.4" />
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\..\..\Shared\Shared.csproj" />
-        <ProjectReference Include="..\..\Shared\DoctorAvailability.Shared.csproj"/>
-        <ProjectReference Include="..\DoctorAvailability.Data\DoctorAvailability.Data.csproj"/>
+      <ProjectReference Include="..\..\..\..\Shared\Shared.csproj" />
     </ItemGroup>
 
 </Project>

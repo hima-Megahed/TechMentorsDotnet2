@@ -9,5 +9,5 @@ public class AppointmentDto
     public Guid PatientId { get; init; }
     public required string PatientName { get; init; }
     public DateTime ReservedAt { get; init; }
-    public BookAppointmentCommand.AppointmentStatus Status { get; init; }
+    public string Status { get; init; }
 }

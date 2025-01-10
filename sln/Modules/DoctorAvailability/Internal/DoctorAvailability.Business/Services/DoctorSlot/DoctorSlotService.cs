@@ -50,4 +50,19 @@ public class DoctorSlotService(IDoctorSlotRepository doctorSlotRepository) : IDo
             Cost = slot.Cost
         };
     }
+
+    public async Task<SlotDto> GetSlotById(Guid slotId)
+    {
+        var slot = await doctorSlotRepository.GetSlotById(slotId);
+        if (slot is null) throw new NullReferenceException("Slot not found");
+        return new SlotDto
+        {
+            Id = slot.Id,
+            Date = slot.Date,
+            DoctorId = slot.DoctorId,
+            DoctorName = slot.DoctorName,
+            Cost = slot.Cost,
+            IsReserved = slot.IsReserved
+        };
+    }
 }

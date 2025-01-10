@@ -9,4 +9,5 @@ public interface IDoctorSlotService
     Task<List<Internal.Data.Models.DoctorSlot>> GetDoctorAvailableSlots();
     Task<Guid> AddSlot(DoctorSlotRequestModel doctorSlotRequestModel);
     Task<SlotDto> ReserveSlot(Guid slotId);
+    Task<SlotDto> GetSlotById(Guid slotId);
 }

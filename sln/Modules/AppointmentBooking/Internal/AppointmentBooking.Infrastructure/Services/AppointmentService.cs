@@ -2,6 +2,7 @@
 using AppointmentBooking.Application.BookAppointment.DTOs;
 using AppointmentBooking.Application.Contracts.Services;
 using AppointmentBooking.Infrastructure.Repositories;
+using DoctorAvailability.Shared.Facade;
 
 namespace AppointmentBooking.Infrastructure.Services;
 

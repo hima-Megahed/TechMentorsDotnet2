@@ -32,6 +32,6 @@ public class Appointment : BaseEntity
             ReservedAt = appointment.ReservedAt,
             PatientId = appointment.PatientId
         }));
-        return new Appointment(slotId, patientName);
+        return appointment;
     }
 }

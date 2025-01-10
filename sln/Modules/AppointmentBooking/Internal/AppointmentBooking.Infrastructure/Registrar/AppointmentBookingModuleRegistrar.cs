@@ -1,5 +1,9 @@
-﻿using AppointmentBooking.Application.Contracts.Services;
+﻿using System.Reflection;
+using AppointmentBooking.Api.Endpoints.BookAppointment;
+using AppointmentBooking.Application.BookAppointment.Commands;
+using AppointmentBooking.Application.Contracts.Services;
 using AppointmentBooking.Application.GetAvailableSlots.Queries;
+using AppointmentBooking.Domain.Entities;
 using AppointmentBooking.Infrastructure.Persistence.DbContext;
 using AppointmentBooking.Infrastructure.Repositories;
 using AppointmentBooking.Infrastructure.Services;
@@ -18,7 +22,12 @@ public static class AppointmentBookingModuleRegistrar
     {
         var connectionString = configuration.GetConnectionString("DefaultConnection");
 
-        services.AddDbContext<AppointmentBookingContext>(options => { options.UseSqlite(connectionString); });
+        services.AddDbContext<AppointmentBookingContext>((sp, options) =>
+        {
+            options.AddInterceptors(sp.GetServices<ISaveChangesInterceptor>());
+            options.UseSqlite(connectionString);
+        });
+        
         services.AddScoped<ISaveChangesInterceptor, DispatchDomainEventsInterceptor>();
 
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(GetAvailableSlotsQuery).Assembly));
@@ -27,5 +36,16 @@ public static class AppointmentBookingModuleRegistrar
         services.AddScoped<IAppointmentService, AppointmentService>();
 
         return services;
+    }
+    
+    public static Assembly[] GetModuleAssemblies()
+    {
+        return
+        [
+            typeof(BookAppointmentEndpoint).Assembly,
+            typeof(AppointmentService).Assembly,
+            typeof(BookAppointmentCommand).Assembly,
+            typeof(Appointment).Assembly
+        ];
     }
 }

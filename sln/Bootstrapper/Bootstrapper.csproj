@@ -22,6 +22,7 @@
     <ItemGroup>
         <ProjectReference Include="..\Modules\AppointmentBooking\Internal\AppointmentBooking.Api\AppointmentBooking.Api.csproj" />
         <ProjectReference Include="..\Modules\AppointmentBooking\Internal\AppointmentBooking.Infrastructure\AppointmentBooking.Infrastructure.csproj"/>
+        <ProjectReference Include="..\Modules\AppointmentConfirmation\AppointmentConfirmation.Notification\AppointmentConfirmation.Notification\AppointmentConfirmation.Notification.csproj" />
         <ProjectReference Include="..\Modules\DoctorAvailability\Internal\DoctorAvailability.Presentation\DoctorAvailability.Presentation.csproj"/>
         <ProjectReference Include="..\Shared\Shared.csproj"/>
     </ItemGroup>

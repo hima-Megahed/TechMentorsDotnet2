@@ -1,8 +1,10 @@
-﻿using DoctorAvailability.Business.Facade;
+﻿using System.Reflection;
+using DoctorAvailability.Business.Facade;
 using DoctorAvailability.Business.Repositories;
 using DoctorAvailability.Business.Services.DoctorSlot;
 using DoctorAvailability.Internal.Data.DbContext;
 using DoctorAvailability.Internal.Data.Models;
+using DoctorAvailability.Presentation.Endpoints.AddSlot;
 using DoctorAvailability.Shared.Facade;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
@@ -17,10 +19,9 @@ public static class DoctorAvailabilityModuleRegistrar
         IConfiguration configuration)
     {
         var connectionString = configuration.GetConnectionString("DefaultConnection");
-
-
+        
         services.AddDbContext<DoctorAvailabilityContext>(options => { options.UseSqlite(connectionString); });
-
+        
         services.AddScoped<IDoctorSlotRepository, DoctorSlotRepository>();
         services.AddScoped<IDoctorSlotService, DoctorSlotService>();
         services.AddScoped<IDoctorAvailabilityFacade, DoctorAvailabilityFacade>();
@@ -48,5 +49,15 @@ public static class DoctorAvailabilityModuleRegistrar
             );
             context.SaveChanges();
         }
+    }
+
+    public static Assembly[] GetModuleAssemblies()
+    {
+        return
+        [
+            typeof(AddSlotEndpoint).Assembly,
+            typeof(DoctorSlotService).Assembly,
+            typeof(DoctorSlot).Assembly
+        ];
     }
 }

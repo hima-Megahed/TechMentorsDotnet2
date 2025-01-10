@@ -55,6 +55,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppointmentBooking.Applicat
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppointmentBooking.Infrastructure", "Modules\AppointmentBooking\Internal\AppointmentBooking.Infrastructure\AppointmentBooking.Infrastructure.csproj", "{2CE6CEDF-53A4-4713-95E2-09A2C722D593}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppointmentConfirmation.Notification", "Modules\AppointmentConfirmation\AppointmentConfirmation.Notification\AppointmentConfirmation.Notification\AppointmentConfirmation.Notification.csproj", "{3F32B2A8-BF42-4BBB-9BC4-2F5960B5A503}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -113,6 +115,10 @@ Global
 		{2CE6CEDF-53A4-4713-95E2-09A2C722D593}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2CE6CEDF-53A4-4713-95E2-09A2C722D593}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2CE6CEDF-53A4-4713-95E2-09A2C722D593}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3F32B2A8-BF42-4BBB-9BC4-2F5960B5A503}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3F32B2A8-BF42-4BBB-9BC4-2F5960B5A503}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3F32B2A8-BF42-4BBB-9BC4-2F5960B5A503}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3F32B2A8-BF42-4BBB-9BC4-2F5960B5A503}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -141,5 +147,6 @@ Global
 		{A34196D4-9765-422C-8167-F40A8F50DC12} = {CBAA82DB-B3DE-4F46-BA89-9099B5FE1660}
 		{51D9C28B-FE2C-4AAF-89A7-A816A462B21C} = {CBAA82DB-B3DE-4F46-BA89-9099B5FE1660}
 		{2CE6CEDF-53A4-4713-95E2-09A2C722D593} = {CBAA82DB-B3DE-4F46-BA89-9099B5FE1660}
+		{3F32B2A8-BF42-4BBB-9BC4-2F5960B5A503} = {13EE7D63-AB6B-4BFF-8784-CC7D2A4F2B0B}
 	EndGlobalSection
 EndGlobal
