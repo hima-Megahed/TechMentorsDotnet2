@@ -36,7 +36,6 @@ public static class DoctorAvailabilityModuleRegistrar
 
         // Ensure database is created
         context.Database.EnsureCreated();
-
         // Seed data if necessary
         if (!context.DoctorSlots.Any())
         {

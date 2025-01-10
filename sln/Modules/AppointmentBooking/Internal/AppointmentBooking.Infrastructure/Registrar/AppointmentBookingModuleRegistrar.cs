@@ -4,8 +4,10 @@ using AppointmentBooking.Infrastructure.Persistence.DbContext;
 using AppointmentBooking.Infrastructure.Repositories;
 using AppointmentBooking.Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Shared.Domain.Interceptors;
 
 namespace AppointmentBooking.Infrastructure.Registrar;
 
@@ -17,6 +19,7 @@ public static class AppointmentBookingModuleRegistrar
         var connectionString = configuration.GetConnectionString("DefaultConnection");
 
         services.AddDbContext<AppointmentBookingContext>(options => { options.UseSqlite(connectionString); });
+        services.AddScoped<ISaveChangesInterceptor, DispatchDomainEventsInterceptor>();
 
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(GetAvailableSlotsQuery).Assembly));
 

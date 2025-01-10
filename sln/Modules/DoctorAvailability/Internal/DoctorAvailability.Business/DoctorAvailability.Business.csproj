@@ -11,8 +11,13 @@
     </ItemGroup>
 
     <ItemGroup>
+        <ProjectReference Include="..\..\..\..\Shared\Shared.csproj" />
         <ProjectReference Include="..\..\Shared\DoctorAvailability.Shared.csproj"/>
         <ProjectReference Include="..\DoctorAvailability.Data\DoctorAvailability.Data.csproj"/>
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="MediatR" Version="12.4.1" />
     </ItemGroup>
 
 </Project>

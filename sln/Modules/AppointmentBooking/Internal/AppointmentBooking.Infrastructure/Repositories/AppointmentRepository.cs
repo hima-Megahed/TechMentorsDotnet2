@@ -9,8 +9,8 @@ public class AppointmentRepository(AppointmentBookingContext context) : IAppoint
 {
     public async Task<AppointmentDto> BookAppointment(BookAppointmentCommand bookAppointmentCommand)
     {
-        var appointmentEntity = context.Appointments.Add(new Appointment(bookAppointmentCommand.SlotId,
-                bookAppointmentCommand.PatientName));
+        var appointmentEntity = context.Appointments.Add(Appointment.Create(bookAppointmentCommand.SlotId,
+            bookAppointmentCommand.PatientName));
         await context.SaveChangesAsync();
         return new AppointmentDto
         {
