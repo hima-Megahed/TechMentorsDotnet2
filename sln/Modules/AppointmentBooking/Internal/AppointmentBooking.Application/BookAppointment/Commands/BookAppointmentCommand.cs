@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using AppointmentBooking.Application.Contracts.Services;
+using MediatR;
 
 namespace AppointmentBooking.Application.BookAppointment.Commands;
 
@@ -19,10 +20,12 @@ public abstract class BookAppointmentCommand : IRequest
     }
 }
 
-public class BookAppointmentCommandHandler : IRequestHandler<BookAppointmentCommand>
+public class BookAppointmentCommandHandler(
+    IAppointmentService appointmentService) : IRequestHandler<BookAppointmentCommand>
 {
     public async Task Handle(BookAppointmentCommand request, CancellationToken cancellationToken)
     {
-        
+        await appointmentService.BookAppointment(request);
+        // TODO: Reserve Slots Asynchronously
     }
 }

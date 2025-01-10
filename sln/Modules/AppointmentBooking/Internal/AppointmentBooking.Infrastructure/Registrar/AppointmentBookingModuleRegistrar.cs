@@ -1,5 +1,4 @@
-﻿using AppointmentBooking.Application.Contracts.Repositories;
-using AppointmentBooking.Application.Contracts.Services;
+﻿using AppointmentBooking.Application.Contracts.Services;
 using AppointmentBooking.Application.GetAvailableSlots.Queries;
 using AppointmentBooking.Infrastructure.Persistence.DbContext;
 using AppointmentBooking.Infrastructure.Repositories;

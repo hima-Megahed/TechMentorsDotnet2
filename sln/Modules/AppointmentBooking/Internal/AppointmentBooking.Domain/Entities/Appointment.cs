@@ -2,12 +2,12 @@
 
 namespace AppointmentBooking.Domain.Entities;
 
-public class Appointment
+public class Appointment(Guid slotId, string patientName)
 {
-    public Guid Id { get; init; }
-    public Guid SlotId { get; init; }
-    public Guid PatientId { get; init; }
-    public required string PatientName { get; init; }
-    public DateTime ReservedAt { get; init; }
-    public AppointmentStatus Status { get; init; }
+    public Guid Id { get; init; } = Guid.NewGuid();
+    public Guid SlotId { get; init; } = slotId;
+    public Guid PatientId { get; init; } = Guid.NewGuid();
+    public string PatientName { get; init; } = patientName;
+    public DateTime ReservedAt { get; init; } = DateTime.UtcNow;
+    public AppointmentStatus Status { get; init; } = AppointmentStatus.New;
 }

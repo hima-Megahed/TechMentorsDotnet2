@@ -1,12 +1,14 @@
-﻿using AppointmentBooking.Application.BookAppointment.DTOs;
+﻿using AppointmentBooking.Application.BookAppointment.Commands;
+using AppointmentBooking.Application.BookAppointment.DTOs;
 using AppointmentBooking.Application.Contracts.Services;
+using AppointmentBooking.Infrastructure.Repositories;
 
 namespace AppointmentBooking.Infrastructure.Services;
 
-public class AppointmentService : IAppointmentService
+public class AppointmentService(IAppointmentRepository appointmentRepository) : IAppointmentService
 {
-    public Task<AppointmentDto> BookAppointment()
+    public async Task<AppointmentDto> BookAppointment(BookAppointmentCommand bookAppointmentCommand)
     {
-        throw new NotImplementedException();
+        return await appointmentRepository.BookAppointment(bookAppointmentCommand);
     }
 }

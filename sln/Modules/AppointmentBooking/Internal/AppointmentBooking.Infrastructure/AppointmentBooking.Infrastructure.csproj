@@ -19,7 +19,7 @@
     <ItemGroup>
         <ProjectReference Include="..\..\Shared\AppointmentBooking.Shared\AppointmentBooking.Shared.csproj"/>
         <ProjectReference Include="..\AppointmentBooking.Application\AppointmentBooking.Application.csproj"/>
-        <ProjectReference Include="..\AppointmentBooking.Domain\AppointmentBooking.Domain.csproj"/>
+        <ProjectReference Include="..\AppointmentBooking.Domain\AppointmentBooking.Domain.csproj" />
     </ItemGroup>
 
     <ItemGroup>
