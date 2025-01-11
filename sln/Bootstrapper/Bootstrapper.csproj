@@ -8,6 +8,7 @@
 
     <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.0"/>
+        <PackageReference Include="Microsoft.CodeAnalysis.Common" Version="4.12.0" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.0">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -23,6 +24,7 @@
         <ProjectReference Include="..\Modules\AppointmentBooking\Internal\AppointmentBooking.Api\AppointmentBooking.Api.csproj" />
         <ProjectReference Include="..\Modules\AppointmentBooking\Internal\AppointmentBooking.Infrastructure\AppointmentBooking.Infrastructure.csproj"/>
         <ProjectReference Include="..\Modules\AppointmentConfirmation\AppointmentConfirmation.Notification\AppointmentConfirmation.Notification\AppointmentConfirmation.Notification.csproj" />
+        <ProjectReference Include="..\Modules\DoctorAppointmentManagement\Internal\Shell\DoctorAppointmentManagement.Api\DoctorAppointmentManagement.Api.csproj" />
         <ProjectReference Include="..\Modules\DoctorAvailability\Internal\DoctorAvailability.Presentation\DoctorAvailability.Presentation.csproj"/>
         <ProjectReference Include="..\Shared\Shared.csproj"/>
     </ItemGroup>

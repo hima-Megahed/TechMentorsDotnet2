@@ -1,6 +1,7 @@
 using AppointmentBooking.Infrastructure.Registrar;
 using AppointmentConfirmation.Notification.Registrar;
 using Carter;
+using DoctorAppointmentManagement.Api.Registrar;
 using DoctorAvailability.Presentation.Registrar;
 using Scalar.AspNetCore;
 using Shared.Extensions;
@@ -12,22 +13,27 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddOpenApi();
 
 builder.Logging.AddConsole(); // Add Console logging
-builder.Logging.AddDebug(); 
+builder.Logging.AddDebug();
 
 builder.Services
     .AddCarterWithAssemblies(DoctorAvailabilityModuleRegistrar.GetModuleAssemblies())
-    .AddCarterWithAssemblies(AppointmentBookingModuleRegistrar.GetModuleAssemblies());
+    .AddCarterWithAssemblies(AppointmentBookingModuleRegistrar.GetModuleAssemblies())
+    .AddCarterWithAssemblies(DoctorAppointmentManagementModuleRegistrar.GetModuleAssemblies());
 
 var allModulesAssemblies = DoctorAvailabilityModuleRegistrar.GetModuleAssemblies()
     .Concat(AppointmentBookingModuleRegistrar.GetModuleAssemblies())
-    .Concat(AppointmentConfirmationModuleRegistrar.GetModuleAssemblies()).ToArray();
+    .Concat(AppointmentConfirmationModuleRegistrar.GetModuleAssemblies())
+    .Concat(DoctorAppointmentManagementModuleRegistrar.GetModuleAssemblies())
+    .ToArray();
 builder.Services
     .AddMassTransitWithAssemblies(builder.Configuration, allModulesAssemblies);
 
 // Register module services
 DoctorAvailabilityModuleRegistrar
     .AddDoctorAvailabilityModule(builder.Services, builder.Configuration)
-    .AddAppointmentBookingModule(builder.Configuration);
+    .AddAppointmentBookingModule(builder.Configuration)
+    .AddAppointmentConfirmationModule(builder.Configuration)
+    .AddDoctorAppointmentManagementModule(builder.Configuration);
 
 var app = builder.Build();
 
