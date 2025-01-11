@@ -13,7 +13,7 @@
 
     <ItemGroup>
         <ProjectReference Include="..\..\..\..\Shared\Shared.csproj" />
-        <ProjectReference Include="..\..\..\DoctorAvailability\Shared\DoctorAvailability.Shared.csproj"/>
+        <ProjectReference Include="..\..\Shared\AppointmentBooking.Shared\AppointmentBooking.Shared.csproj" />
     </ItemGroup>
 
 </Project>

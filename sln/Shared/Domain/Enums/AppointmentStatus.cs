@@ -1,4 +1,4 @@
-﻿namespace AppointmentBooking.Domain.Enums;
+﻿namespace Shared.Domain.Enums;
 
 public enum AppointmentStatus
 {

@@ -1,8 +1,7 @@
-﻿using AppointmentBooking.Domain.Enums;
-using Shared.Domain.Entities;
-using Shared.DomainEvents;
-using Shared.DomainEvents.Events;
-using Shared.DomainEvents.Events.DTOs;
+﻿using Shared.Domain.Entities;
+using Shared.Domain.Enums;
+using Shared.DTOs;
+using Shared.DTOs.AppointmentBooking;
 
 namespace AppointmentBooking.Domain.Entities;
 
@@ -34,4 +33,6 @@ public class Appointment : BaseEntity
         }));
         return appointment;
     }
+
+    public void SetStatus(AppointmentStatus status) => Status = status;
 }

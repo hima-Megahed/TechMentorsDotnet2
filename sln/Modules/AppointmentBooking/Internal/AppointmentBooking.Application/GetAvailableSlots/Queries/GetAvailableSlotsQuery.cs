@@ -1,4 +1,5 @@
 ﻿using AppointmentBooking.Application.GetAvailableSlots.DTOs;
+using AppointmentBooking.Shared.Gateways.DoctorAvailability;
 using DoctorAvailability.Shared.Facade;
 using MediatR;
 
@@ -8,12 +9,12 @@ public class GetAvailableSlotsQuery : IRequest<IList<SlotDto>>
 {
 }
 
-internal class GetAvailableSlotsQueryHandler(IDoctorAvailabilityFacade doctorAvailabilityFacade)
+internal class GetAvailableSlotsQueryHandler(IDoctorAvailabilityGateway doctorAvailabilityGateway)
     : IRequestHandler<GetAvailableSlotsQuery, IList<SlotDto>>
 {
     public async Task<IList<SlotDto>> Handle(GetAvailableSlotsQuery request, CancellationToken cancellationToken)
     {
-        var slots = await doctorAvailabilityFacade.GetDoctorAvailableSlots();
+        var slots = await doctorAvailabilityGateway.GetDoctorAvailableSlots();
         return SlotDto.From(slots);
     }
 }

@@ -4,9 +4,13 @@ using AppointmentBooking.Application.BookAppointment.Commands;
 using AppointmentBooking.Application.Contracts.Services;
 using AppointmentBooking.Application.GetAvailableSlots.Queries;
 using AppointmentBooking.Domain.Entities;
+using AppointmentBooking.Infrastructure.Facade;
+using AppointmentBooking.Infrastructure.Gateways.DoctorAvailability;
 using AppointmentBooking.Infrastructure.Persistence.DbContext;
 using AppointmentBooking.Infrastructure.Repositories;
 using AppointmentBooking.Infrastructure.Services;
+using AppointmentBooking.Shared.Facade;
+using AppointmentBooking.Shared.Gateways.DoctorAvailability;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
@@ -34,6 +38,8 @@ public static class AppointmentBookingModuleRegistrar
 
         services.AddScoped<IAppointmentRepository, AppointmentRepository>();
         services.AddScoped<IAppointmentService, AppointmentService>();
+        services.AddScoped<IDoctorAvailabilityGateway, DoctorAvailabilityGateway>();
+        services.AddScoped<IAppointmentBookingFacade, AppointmentBookingFacade>();
 
         return services;
     }

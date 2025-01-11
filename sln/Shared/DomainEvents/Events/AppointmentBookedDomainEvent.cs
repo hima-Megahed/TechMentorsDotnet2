@@ -1,6 +1,7 @@
-﻿using Shared.DomainEvents.Events.DTOs;
+﻿using Shared.DomainEvents;
+using Shared.DTOs.AppointmentBooking;
 
-namespace Shared.DomainEvents.Events;
+namespace Shared.DTOs;
 
 public record AppointmentBookedDomainEvent(AppointmentDto Appointment) : IDomainEvent
 { }
