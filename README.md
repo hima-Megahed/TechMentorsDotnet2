@@ -45,19 +45,8 @@ This repository demonstrates an implementation of **Appointment Management** in 
 
 Building this project was a fun and educational experience. It allowed us to explore different architectural and testing styles, demonstrating their strengths and trade-offs in real-world scenarios.
 
-## Team Members
 
-- **[Team Member 1]** – Role/Responsibility  
-- **[Team Member 2]** – Role/Responsibility  
-- **[Team Member 3]** – Role/Responsibility  
-- **[Team Member 4]** – Role/Responsibility  
-
----
-
-Feel free to update the **Team Members** section with actual names and roles, and let me know if you'd like to include more details about any part of the system!
-
-
-
+## Solution Structure
 ```bash
 ├───Bootstrapper
 ├───Modules
