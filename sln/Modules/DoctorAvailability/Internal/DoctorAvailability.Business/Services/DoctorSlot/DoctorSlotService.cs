@@ -1,6 +1,6 @@
 ﻿using DoctorAvailability.Business.Repositories;
 using DoctorAvailability.Business.Services.DoctorSlot.Models;
-using DoctorAvailability.Shared.Models;
+using Shared.DTOs.DoctorAvailability;
 
 namespace DoctorAvailability.Business.Services.DoctorSlot;
 

@@ -71,6 +71,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DoctorAppointmentManagement
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DoctorAppointmentManagement.Api", "Modules\DoctorAppointmentManagement\Internal\Shell\DoctorAppointmentManagement.Api\DoctorAppointmentManagement.Api.csproj", "{D5072624-CBFF-41B6-8B32-76BFFD0EA9DB}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{D412CF0D-8FD0-4AA5-8671-11DEAFF5A9EF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DoctorAppointmentManagement.UnitTests", "Modules\DoctorAppointmentManagement\Tests\DoctorAppointmentManagement.UnitTests\DoctorAppointmentManagement.UnitTests.csproj", "{0E72D691-0BD7-47F5-BAF8-1A1D3988B83F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -149,6 +153,10 @@ Global
 		{D5072624-CBFF-41B6-8B32-76BFFD0EA9DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D5072624-CBFF-41B6-8B32-76BFFD0EA9DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D5072624-CBFF-41B6-8B32-76BFFD0EA9DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E72D691-0BD7-47F5-BAF8-1A1D3988B83F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E72D691-0BD7-47F5-BAF8-1A1D3988B83F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E72D691-0BD7-47F5-BAF8-1A1D3988B83F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E72D691-0BD7-47F5-BAF8-1A1D3988B83F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -185,5 +193,7 @@ Global
 		{54479BB1-289B-4EEC-89C7-33316299989C} = {167D4954-EC40-4E5C-87A5-AD0E7E472CAA}
 		{C24B2556-683B-4591-9B16-B559364940DA} = {2EBFEC22-85A5-4764-9F10-A91F6D6D38CE}
 		{D5072624-CBFF-41B6-8B32-76BFFD0EA9DB} = {2EBFEC22-85A5-4764-9F10-A91F6D6D38CE}
+		{D412CF0D-8FD0-4AA5-8671-11DEAFF5A9EF} = {93C97658-8229-4571-A97C-304170DBAE4E}
+		{0E72D691-0BD7-47F5-BAF8-1A1D3988B83F} = {D412CF0D-8FD0-4AA5-8671-11DEAFF5A9EF}
 	EndGlobalSection
 EndGlobal

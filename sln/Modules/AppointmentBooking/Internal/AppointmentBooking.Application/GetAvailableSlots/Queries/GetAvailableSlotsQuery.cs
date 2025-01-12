@@ -1,6 +1,5 @@
 ﻿using AppointmentBooking.Application.GetAvailableSlots.DTOs;
 using AppointmentBooking.Shared.Gateways.DoctorAvailability;
-using DoctorAvailability.Shared.Facade;
 using MediatR;
 
 namespace AppointmentBooking.Application.GetAvailableSlots.Queries;

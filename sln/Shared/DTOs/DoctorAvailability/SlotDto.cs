@@ -1,4 +1,4 @@
-﻿namespace DoctorAvailability.Shared.Models;
+﻿namespace Shared.DTOs.DoctorAvailability;
 
 public class SlotDto
 {

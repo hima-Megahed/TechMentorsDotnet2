@@ -1,4 +1,4 @@
-﻿using DoctorAvailability.Shared.Models;
+﻿using Shared.DTOs.DoctorAvailability;
 
 namespace AppointmentBooking.Shared.Gateways.DoctorAvailability;
 

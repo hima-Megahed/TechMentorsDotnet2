@@ -4,7 +4,7 @@ namespace AppointmentBooking.UnitTests.ArchitectureTests;
 
 public class StandardRulesTests
 {
-    private const string ModuleNamespace = "DoctorAvailability.Internal";
+    private const string ModuleNamespace = "AppointmentBooking.Internal";
 
     [Fact]
     public void Interfaces_ShouldStartWithI()

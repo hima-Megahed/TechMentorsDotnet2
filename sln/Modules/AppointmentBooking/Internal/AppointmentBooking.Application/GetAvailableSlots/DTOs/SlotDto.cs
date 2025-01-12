@@ -9,7 +9,7 @@ public class SlotDto
     public bool IsReserved { get; set; }
     public decimal Cost { get; set; }
 
-    public static IList<SlotDto> From(IList<DoctorAvailability.Shared.Models.SlotDto> slots)
+    public static IList<SlotDto> From(IList<global::Shared.DTOs.DoctorAvailability.SlotDto> slots)
     {
         return slots.Select(slot => new SlotDto
         {

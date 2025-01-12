@@ -1,6 +1,6 @@
 ﻿using DoctorAvailability.Business.Services.DoctorSlot;
 using DoctorAvailability.Shared.Facade;
-using DoctorAvailability.Shared.Models;
+using Shared.DTOs.DoctorAvailability;
 
 namespace DoctorAvailability.Business.Facade;
 

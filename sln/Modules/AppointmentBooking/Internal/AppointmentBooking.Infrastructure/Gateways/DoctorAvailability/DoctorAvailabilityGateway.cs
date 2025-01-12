@@ -1,6 +1,6 @@
 ﻿using AppointmentBooking.Shared.Gateways.DoctorAvailability;
 using DoctorAvailability.Shared.Facade;
-using DoctorAvailability.Shared.Models;
+using Shared.DTOs.DoctorAvailability;
 
 namespace AppointmentBooking.Infrastructure.Gateways.DoctorAvailability;
 

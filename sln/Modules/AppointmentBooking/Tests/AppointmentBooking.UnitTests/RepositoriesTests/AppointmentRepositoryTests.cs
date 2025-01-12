@@ -1,121 +1,118 @@
-﻿/*namespace AppointmentBooking.UnitTests.RepositoriesTests;
+﻿using AppointmentBooking.Application.BookAppointment.Commands;
+using AppointmentBooking.Domain.Entities;
+using AppointmentBooking.Infrastructure.Persistence.DbContext;
+using AppointmentBooking.Infrastructure.Repositories;
+using AppointmentBooking.Shared.Gateways.DoctorAvailability;
+using Microsoft.EntityFrameworkCore;
+using Moq;
+using Shared.Domain.Enums;
+using Shared.DTOs.DoctorAvailability;
+
+namespace AppointmentBooking.UnitTests.RepositoriesTests;
 
 // Chicago School "Classicist"
 public class AppointmentRepositoryTests
 {
-    private DoctorAvailabilityContext CreateInMemoryContext()
+    private AppointmentBookingContext CreateInMemoryContext()
     {
-        var options = new DbContextOptionsBuilder<DoctorAvailabilityContext>()
-            .UseInMemoryDatabase(Guid.NewGuid().ToString()) // Unique DB for each test
+        var options = new DbContextOptionsBuilder<AppointmentBookingContext>()
+            .UseInMemoryDatabase(Guid.NewGuid().ToString())
             .Options;
-
-        return new DoctorAvailabilityContext(options);
+        return new AppointmentBookingContext(options);
     }
 
     [Fact]
-    public async Task GetDoctorAvailableSlots_ShouldReturn_UnreservedSlots()
+    public async Task BookAppointment_ShouldAddAppointmentAndReserveSlot()
     {
         // Arrange
-        var context = CreateInMemoryContext();
-        var repository = new DoctorSlotRepository(context);
+        await using var context = CreateInMemoryContext();
+        var doctorAvailabilityGatewayMock = new Mock<IDoctorAvailabilityGateway>();
+        var repository = new AppointmentRepository(context, doctorAvailabilityGatewayMock.Object);
 
-        var doctorId = Guid.NewGuid();
-        var doctorName = "Dr. John Doe";
-        context.DoctorSlots.AddRange(
-            DoctorSlot.Create(DateTime.Now.AddDays(1), doctorId, doctorName, 100),
-            DoctorSlot.CreateReserved(DateTime.Now.AddDays(1), doctorId, doctorName, 150));
-        await context.SaveChangesAsync();
+        var slotId = Guid.NewGuid();
+        var patientName = "John Doe";
+        var command = new BookAppointmentCommand { SlotId = slotId, PatientName = patientName };
 
-        // Act
-        var doctorAvailableSlots = await repository.GetDoctorAvailableSlots();
-
-        // Assert
-        Assert.Single(doctorAvailableSlots); // Only 1 slot is unreserved
-        Assert.False(doctorAvailableSlots.First().IsReserved);
-    }
-
-    [Fact]
-    public async Task AddSlot_ShouldAdd_NewSlot()
-    {
-        // Arrange
-        var context = CreateInMemoryContext();
-        var repository = new DoctorSlotRepository(context);
-
-        var newSlot = DoctorSlot.Create(DateTime.Now.AddDays(3), Guid.NewGuid(), "John Doe", 150);
+        doctorAvailabilityGatewayMock.Setup(d => d.ReserveSlot(slotId))
+            .Returns(Task.FromResult(
+                new SlotDto
+                {
+                    Id = slotId,
+                    Cost = 100,
+                    Date = DateTime.UtcNow,
+                    DoctorId = Guid.NewGuid(),
+                    DoctorName = "John Doe",
+                    IsReserved = false
+                }));
 
         // Act
-        var result = await repository.AddSlot(newSlot);
-
-        // Assert
-        var addedSlot = await context.DoctorSlots.FindAsync(result);
-        Assert.NotNull(addedSlot);
-        Assert.Equal(newSlot.Id, addedSlot.Id);
-    }
-
-    [Fact]
-    public async Task GetMySlots_ShouldReturn_AllSlots()
-    {
-        // Arrange
-        var context = CreateInMemoryContext();
-        var repository = new DoctorSlotRepository(context);
-
-        var doctorId = Guid.NewGuid();
-        var doctorName = "Dr. John Doe";
-        context.DoctorSlots.AddRange(
-            DoctorSlot.Create(DateTime.Now.AddDays(3), doctorId, doctorName, 150),
-            DoctorSlot.CreateReserved(DateTime.Now.AddDays(3), doctorId, doctorName, 150)
-        );
-        await context.SaveChangesAsync();
-
-        // Act
-        var result = await repository.GetMySlots();
-
-        // Assert
-        Assert.Equal(2, result.Count); // All slots should be returned
-    }
-
-    [Fact]
-    public async Task GetSlotById_ShouldReturn_CorrectSlot()
-    {
-        // Arrange
-        var context = CreateInMemoryContext();
-        var repository = new DoctorSlotRepository(context);
-
-        var slot = DoctorSlot.Create(DateTime.Now.AddDays(3), Guid.NewGuid(), "John Doe", 150);
-        context.DoctorSlots.Add(slot);
-        await context.SaveChangesAsync();
-
-        // Act
-        var result = await repository.GetSlotById(slot.Id);
+        var result = await repository.BookAppointment(command);
 
         // Assert
         Assert.NotNull(result);
-        Assert.Equal(slot.Id, result.Id);
+        Assert.Equal(patientName, result.PatientName);
+        Assert.Equal(slotId, result.SlotId);
+        Assert.Single(context.Appointments);
+        doctorAvailabilityGatewayMock.Verify(d => d.ReserveSlot(slotId), Times.Once);
     }
 
     [Fact]
-    public async Task GetSlotById_ShouldReturn_Null_WhenSlotDoesNotExist()
+    public async Task GetUpcomingAppointments_ShouldReturnListOfAppointments()
     {
         // Arrange
-        var context = CreateInMemoryContext();
-        var repository = new DoctorSlotRepository(context);
+        await using var context = CreateInMemoryContext();
+        var repository = new AppointmentRepository(context, Mock.Of<IDoctorAvailabilityGateway>());
+
+        var appointments = new List<Appointment>
+        {
+            Appointment.Create(Guid.NewGuid(), "John Doe"),
+            Appointment.Create(Guid.NewGuid(), "John Doe")
+        };
+
+        context.Appointments.AddRange(appointments);
+        await context.SaveChangesAsync();
 
         // Act
-        var result = await repository.GetSlotById(Guid.NewGuid());
+        var result = await repository.GetUpcomingAppointments();
 
         // Assert
-        Assert.Null(result);
+        Assert.NotNull(result);
+        Assert.Equal(2, result.Count);
     }
 
     [Fact]
-    public async Task AddSlot_ShouldThrow_WhenDoctorNameIsNull()
+    public async Task ChangeAppointmentStatus_ShouldUpdateStatusAndSaveChanges()
     {
         // Arrange
-        var context = CreateInMemoryContext();
-        var repository = new DoctorSlotRepository(context);
+        await using var context = CreateInMemoryContext();
+        var repository = new AppointmentRepository(context, Mock.Of<IDoctorAvailabilityGateway>());
+        
+        var newStatus = AppointmentStatus.Completed;
+        var appointment = Appointment.Create(Guid.NewGuid(), "John Doe");
+
+        context.Appointments.Add(appointment);
+        await context.SaveChangesAsync();
+
+        // Act
+        await repository.ChangeAppointmentStatus(appointment.Id, newStatus);
+
+        // Assert
+        var updatedAppointment = await context.Appointments.FindAsync(appointment.Id);
+        Assert.NotNull(updatedAppointment);
+        Assert.Equal(newStatus, updatedAppointment.Status);
+    }
+
+    [Fact]
+    public async Task ChangeAppointmentStatus_ShouldThrowKeyNotFoundExceptionIfAppointmentNotFound()
+    {
+        // Arrange
+        await using var context = CreateInMemoryContext();
+        var repository = new AppointmentRepository(context, Mock.Of<IDoctorAvailabilityGateway>());
+
+        var appointmentId = Guid.NewGuid();
 
         // Act & Assert
-        var exception = await Assert.ThrowsAsync<ArgumentException>(() =>
-            repository.AddSlot(DoctorSlot.Create(DateTime.Now, Guid.NewGuid(), null, 100)));
+        await Assert.ThrowsAsync<KeyNotFoundException>(async () =>
+            await repository.ChangeAppointmentStatus(appointmentId, AppointmentStatus.Completed));
     }
-}*/
+}
