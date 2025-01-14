@@ -46,6 +46,22 @@ public class DoctorSlotServiceTests
     }
 
     [Fact]
+    public async Task GetMySlots_ShouldReturn_EmptyList_WhenNoSlotsExist()
+    {
+        // Arrange
+        _repositoryMock.Setup(repo => repo.GetMySlots())
+            .ReturnsAsync(new List<DoctorSlot>());
+
+        // Act
+        var result = await _service.GetMySlots();
+
+        // Assert
+        Assert.NotNull(result);
+        Assert.Empty(result);
+        _repositoryMock.Verify(repo => repo.GetMySlots(), Times.Once);
+    }
+
+    [Fact]
     public async Task AddSlot_ShouldAddSlotAndReturnId()
     {
         // Arrange
