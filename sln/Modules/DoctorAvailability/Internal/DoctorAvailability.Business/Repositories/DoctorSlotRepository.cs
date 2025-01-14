@@ -32,6 +32,8 @@ public class DoctorSlotRepository(DoctorAvailabilityContext context) : IDoctorSl
 
     public async Task<DoctorSlot?> GetSlotById(Guid slotId)
     {
+        if (slotId == Guid.Empty)
+            throw new ArgumentException(nameof(slotId));
         return await context
             .DoctorSlots.FindAsync(slotId);
     }
