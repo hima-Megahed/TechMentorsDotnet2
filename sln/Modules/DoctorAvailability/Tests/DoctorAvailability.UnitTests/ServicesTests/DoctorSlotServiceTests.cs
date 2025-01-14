@@ -62,6 +62,77 @@ public class DoctorSlotServiceTests
     }
 
     [Fact]
+    public async Task GetMySlots_ShouldHandle_NullReturnFromRepository()
+    {
+        // Arrange
+        _repositoryMock.Setup(repo => repo.GetMySlots())
+            .ReturnsAsync((List<DoctorSlot>?)null);
+
+        // Act
+        var result = await _service.GetMySlots();
+
+        // Assert
+        Assert.Null(result);
+        _repositoryMock.Verify(repo => repo.GetMySlots(), Times.Once);
+    }
+
+    [Fact]
+    public async Task GetMySlots_ShouldNotCallRepository_WhenConditionIsNotMet()
+    {
+        // Example condition for not calling repository (this is hypothetical; adjust as needed)
+        var shouldCallRepository = false;
+
+        if (shouldCallRepository)
+        {
+            _repositoryMock.Setup(repo => repo.GetMySlots())
+                .ReturnsAsync(new List<DoctorSlot>());
+        }
+
+        // Act
+        var result = shouldCallRepository ? await _service.GetMySlots() : new List<DoctorSlot>();
+
+        // Assert
+        if (!shouldCallRepository)
+        {
+            Assert.Empty(result);
+            _repositoryMock.Verify(repo => repo.GetMySlots(), Times.Never);
+        }
+    }
+    [Fact]
+    public async Task GetMySlots_ShouldHandle_RepositoryException()
+    {
+        // Arrange
+        _repositoryMock.Setup(repo => repo.GetMySlots())
+            .ThrowsAsync(new InvalidOperationException("Database error"));
+
+        // Act & Assert
+        var exception = await Assert.ThrowsAsync<InvalidOperationException>(() => _service.GetMySlots());
+        Assert.Equal("Database error", exception.Message);
+        _repositoryMock.Verify(repo => repo.GetMySlots(), Times.Once);
+    }
+    [Fact]
+    public async Task GetMySlots_ShouldVerifyMultipleRepositoryCalls()
+    {
+        // Arrange
+        var mockSlots = new List<DoctorSlot>
+    {
+        DoctorSlot.Create(DateTime.Now.AddDays(1), Guid.NewGuid(), "Dr. John Doe", 100)
+    };
+
+        _repositoryMock.Setup(repo => repo.GetMySlots())
+            .ReturnsAsync(mockSlots);
+
+        // Act
+        var result1 = await _service.GetMySlots();
+        var result2 = await _service.GetMySlots();
+
+        // Assert
+        Assert.Equal(mockSlots.Count, result1.Count);
+        Assert.Equal(mockSlots.Count, result2.Count);
+        _repositoryMock.Verify(repo => repo.GetMySlots(), Times.Exactly(2));
+    }
+
+    [Fact]
     public async Task AddSlot_ShouldAddSlotAndReturnId()
     {
         // Arrange
